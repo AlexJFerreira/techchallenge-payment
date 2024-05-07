@@ -1,6 +1,6 @@
 package br.com.postech.techchallengepayment.infra;
 
-import org.springframework.context.annotation.Bean;
+/*import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -24,4 +24,4 @@ public class SecurityConfig {
         .oauth2ResourceServer(oauth2 -> oauth2.jwt());
     return http.build();
   }
-}
+}*/

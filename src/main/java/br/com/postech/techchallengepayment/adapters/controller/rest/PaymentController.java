@@ -41,4 +41,6 @@ public class PaymentController {
     log.info("Payment approval for paymentId: {} received", paymentId);
     return modelMapper.map(approvePaymentUseCase.execute(paymentId), PaymentResponse.class);
   }
+
+  //Criar endpoint de criação de pagamento
 }
