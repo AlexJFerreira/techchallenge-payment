@@ -6,8 +6,8 @@ import lombok.Data;
 
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class PaymentResponse {
+public class PaymentApprovalResponse {
 
-  private Integer id;
+  private String id;
   private PaymentStatus status;
 }

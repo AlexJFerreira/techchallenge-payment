@@ -20,9 +20,13 @@ public class PaymentGatewayImpl implements PaymentGateway {
 
   @Override
   @Transactional
-  public Optional<Payment> approvePayment(Integer paymentId) {
+  public Optional<Payment> approvePayment(String paymentId) {
     Optional<PaymentEntity> payment = paymentRepository.findById(paymentId);
-    payment.ifPresent(PaymentEntity::approve);
+    payment.ifPresent(paymentEntity -> {
+      paymentEntity.approve();
+      paymentRepository.save(paymentEntity);
+    });
+
     return payment.map(paymentEntity -> modelMapper.map(paymentEntity, Payment.class));
   }
 
@@ -30,5 +34,11 @@ public class PaymentGatewayImpl implements PaymentGateway {
   public Optional<Payment> searchPaymentByOrderId(Integer orderId) {
     return paymentRepository.findByOrderId(orderId)
         .map(paymentEntity -> modelMapper.map(paymentEntity, Payment.class));
+  }
+
+  @Override
+  public Payment createPayment(Payment payment) {
+    PaymentEntity paymentEntity = modelMapper.map(payment, PaymentEntity.class);
+    return modelMapper.map(paymentRepository.save(paymentEntity), Payment.class);
   }
 }

@@ -15,7 +15,7 @@ public class ApprovePaymentUseCaseImpl implements ApprovePaymentUseCase {
   private final PaymentGateway paymentGateway;
 
   @Override
-  public Payment execute(Integer paymentId) {
+  public Payment execute(String paymentId) {
     return paymentGateway.approvePayment(paymentId)
         .orElseThrow(() -> new NotFoundException(String.format("Payment with id %s not found", paymentId)));
   }

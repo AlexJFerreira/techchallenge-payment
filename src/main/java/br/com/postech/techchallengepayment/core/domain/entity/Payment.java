@@ -5,6 +5,8 @@ import lombok.Data;
 
 @Data
 public class Payment {
-  private Integer id;
-  private Integer orderId;
+  private String id;
+  private String orderId;
+  private String cpf;
+  private PaymentStatus status;
 }

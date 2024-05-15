@@ -2,19 +2,20 @@ package br.com.postech.techchallengepayment.adapters.gateway.database.entity;
 
 
 import br.com.postech.techchallengepayment.core.domain.enums.PaymentStatus;
+import java.util.UUID;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document("techchallenge-payments")
+@Document("payments")
 @Data
 public class PaymentEntity {
 
   @Id
-  private Integer id;
-
-
+  private String id = UUID.randomUUID().toString();
   private Integer orderId;
+  private String cpf;
+
 
   private PaymentStatus status = PaymentStatus.PENDING;
 
