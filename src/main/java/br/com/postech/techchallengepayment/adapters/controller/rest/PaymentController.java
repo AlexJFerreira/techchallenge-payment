@@ -34,7 +34,6 @@ public class PaymentController {
   private final ApprovePaymentUseCase approvePaymentUseCase;
   private final CreatePaymentUseCase createPaymentUseCase;
 
-
   @GetMapping("/orders/{orderId}")
   @ResponseStatus(HttpStatus.OK)
   public PaymentApprovalResponse getPaymentByOrderId(@NotNull @PathVariable final Integer orderId) {
