@@ -169,25 +169,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
 
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.12</version>
-                <configuration>
-                    <excludes>
-                        <exclude>**/request/*</exclude>
-                        <exclude>**/response/*</exclude>
-                        <exclude>**/exceptions/*</exclude>
-                        <exclude>**/infra/*</exclude>
-                        <exclude>**/domain/*</exclude>
-                        <exclude>br/com/postech/techchallengepayment/core/domain/**</exclude>
-                        <exclude>**/gateway/database/entity/*</exclude>
-                        <exclude>br/com/postech/techchallengepayment/Application.class</exclude>
-                    </excludes>
-                </configuration>
-                <executions>
-                </executions>
-            </plugin>
+
         </plugins>
     </build>
     <repositories>
