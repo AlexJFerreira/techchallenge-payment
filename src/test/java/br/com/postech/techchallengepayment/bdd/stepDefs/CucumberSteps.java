@@ -3,39 +3,39 @@ package br.com.postech.techchallengepayment.bdd.stepDefs;
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-import br.com.postech.techchallengepayment.MongoDBTestContainerConfig;
 import br.com.postech.techchallengepayment.adapters.controller.rest.request.PaymentRequest;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import de.bwaldvogel.mongo.MongoServer;
+import de.bwaldvogel.mongo.backend.memory.MemoryBackend;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.spring.CucumberContextConfiguration;
 import io.restassured.response.Response;
 import java.math.BigDecimal;
+import org.bson.Document;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.springframework.boot.test.autoconfigure.data.mongo.DataMongoTest;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
-import org.testcontainers.containers.MongoDBContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.junit.jupiter.Testcontainers;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 @CucumberContextConfiguration
-@ContextConfiguration(classes = MongoDBTestContainerConfig.class)
-@Testcontainers
-//@DataMongoTest
 public class CucumberSteps {
   private Response response;
   private PaymentRequest request;
 
-  @LocalServerPort
-  private Integer port;
 
-  @Container
-  public static MongoDBContainer mongoDBContainer = new MongoDBContainer("mongo:latest").withExposedPorts(27020);
 
-  private static final String HOST = "http://localhost:";
+  private static final String HOST = "http://localhost:8082";
   private static final String BASE_URL_PREFIX = "/techchallenge/payments";
 
   @Given("client wants to create a payment")
@@ -49,7 +49,7 @@ public class CucumberSteps {
         .contentType(MediaType.APPLICATION_JSON_VALUE)
         .body(request)
         .when()
-        .post(HOST + port + BASE_URL_PREFIX);
+        .post(HOST + BASE_URL_PREFIX);
   }
 
   @Then("client receives payment creation confirmation")
