@@ -10,3 +10,4 @@ Api responsável por disponibilizar a criação, aprovação e busca ddos pagame
 
 - BDD com Cucumber:
 <img width="1371" alt="image" src="https://github.com/AlexJFerreira/techchallenge-payment/assets/14243378/497910a5-2ead-47f3-8dbf-4603757667d3">
+
