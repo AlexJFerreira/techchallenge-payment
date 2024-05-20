@@ -1,5 +1,7 @@
 package br.com.postech.techchallengepayment.util;
 
+import br.com.postech.techchallengepayment.adapters.controller.rest.request.PaymentRequest;
+import br.com.postech.techchallengepayment.adapters.controller.rest.response.PaymentCreationResponse;
 import br.com.postech.techchallengepayment.adapters.gateway.client.request.OrderStatus;
 import br.com.postech.techchallengepayment.adapters.gateway.client.response.OrderResponse;
 import br.com.postech.techchallengepayment.adapters.gateway.database.entity.PaymentEntity;
@@ -44,6 +46,10 @@ public abstract class PaymentTestProvider {
     return payment;
   }
 
+  public PaymentRequest getFakeInputPaymentRequest() {
+    return new PaymentRequest("1", "36227297836", new BigDecimal("100.00"));
+  }
+
   public Payment getFakeOutputPayment() {
     Payment payment = new Payment();
     payment.setId("7203e682-a02c-4f6e-b555-c39f892c9f0c");
@@ -53,6 +59,4 @@ public abstract class PaymentTestProvider {
     payment.setOrderId("1");
     return payment;
   }
-
-
 }
