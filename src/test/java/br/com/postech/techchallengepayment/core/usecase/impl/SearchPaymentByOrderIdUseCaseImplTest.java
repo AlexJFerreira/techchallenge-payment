@@ -5,6 +5,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import br.com.postech.techchallengepayment.core.domain.entity.Payment;
+import br.com.postech.techchallengepayment.core.exceptions.NotFoundException;
 import br.com.postech.techchallengepayment.core.gateway.client.OrderGateway;
 import br.com.postech.techchallengepayment.core.gateway.database.PaymentGateway;
 import br.com.postech.techchallengepayment.util.PaymentTestProvider;
@@ -25,7 +26,7 @@ class SearchPaymentByOrderIdUseCaseImplTest extends PaymentTestProvider {
   private PaymentGateway paymentGateway;
 
   @Test
-  void execute() {
+  void executeWithSuccess() {
     //Arrange
     var orderId = 1;
     var outPutPayment = getFakeOutputPayment();
@@ -39,5 +40,21 @@ class SearchPaymentByOrderIdUseCaseImplTest extends PaymentTestProvider {
     //Act
     verify(paymentGateway).searchPaymentByOrderId(orderId);
     assertNotNull(payment);
+  }
+
+  @Test
+  void executeWhenPaymentIsNotFoundThenThrowNofFoundException() {
+    //Arrange
+    var orderId = 1;
+    var outPutPayment = getFakeOutputPayment();
+
+    when(paymentGateway.searchPaymentByOrderId(orderId))
+        .thenReturn(Optional.empty());
+
+    //Act
+    assertThrows(NotFoundException.class, () -> searchPaymentByOrderIdUseCase.execute(orderId));
+
+    //Act
+    verify(paymentGateway).searchPaymentByOrderId(orderId);
   }
 }
