@@ -21,7 +21,7 @@ public class PaymentEntity {
 
   private PaymentStatus status = PaymentStatus.PENDING;
 
-  public void approve() {
-    this.status = PaymentStatus.APPROVED;
+  public void changeStatus(PaymentStatus paymentStatus) {
+    this.status = paymentStatus;
   }
 }

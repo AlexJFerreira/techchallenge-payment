@@ -1,6 +1,7 @@
 package br.com.postech.techchallengepayment.adapters.controller.rest;
 
 
+import br.com.postech.techchallengepayment.adapters.controller.rest.request.PaymentApprovalRequest;
 import br.com.postech.techchallengepayment.adapters.controller.rest.request.PaymentRequest;
 import br.com.postech.techchallengepayment.adapters.controller.rest.response.PaymentApprovalResponse;
 import br.com.postech.techchallengepayment.adapters.controller.rest.response.PaymentCreationResponse;
@@ -42,11 +43,12 @@ public class PaymentController {
     return modelMapper.map(payment, PaymentApprovalResponse.class);
   }
 
-  @PatchMapping("/{paymentId}")
+  @PatchMapping
   @ResponseStatus(HttpStatus.OK)
-  public PaymentApprovalResponse paymentApproval(@NotNull @PathVariable final String paymentId) {
-    log.info("Payment approval for paymentId: {} received", paymentId);
-    return modelMapper.map(approvePaymentUseCase.execute(paymentId), PaymentApprovalResponse.class);
+  public PaymentApprovalResponse paymentApproval(@NotNull @RequestBody final PaymentApprovalRequest paymentApprovalRequest) {
+    log.info("Payment approval: {} received", paymentApprovalRequest);
+    return modelMapper.map(approvePaymentUseCase.execute(paymentApprovalRequest.getPaymentId(), paymentApprovalRequest.getStatus()),
+        PaymentApprovalResponse.class);
   }
 
   @PostMapping
