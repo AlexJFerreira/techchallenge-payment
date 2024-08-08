@@ -4,6 +4,7 @@ package br.com.postech.techchallengepayment.adapters.gateway.database;
 import br.com.postech.techchallengepayment.adapters.gateway.database.entity.PaymentEntity;
 import br.com.postech.techchallengepayment.adapters.gateway.database.repository.PaymentRepository;
 import br.com.postech.techchallengepayment.core.domain.entity.Payment;
+import br.com.postech.techchallengepayment.core.domain.enums.PaymentStatus;
 import br.com.postech.techchallengepayment.core.gateway.database.PaymentGateway;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
@@ -20,10 +21,10 @@ public class PaymentGatewayImpl implements PaymentGateway {
 
   @Override
   @Transactional
-  public Optional<Payment> approvePayment(String paymentId) {
+  public Optional<Payment> approvePayment(String paymentId, PaymentStatus paymentStatus) {
     Optional<PaymentEntity> payment = paymentRepository.findById(paymentId);
     payment.ifPresent(paymentEntity -> {
-      paymentEntity.approve();
+      paymentEntity.changeStatus(paymentStatus);
       paymentRepository.save(paymentEntity);
     });
 

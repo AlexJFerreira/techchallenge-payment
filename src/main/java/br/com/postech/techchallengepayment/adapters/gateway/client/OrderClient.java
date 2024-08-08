@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-@FeignClient(value = "order", url = "http://techchallenge-orders-env.eba-mpkpankc.us-east-2.elasticbeanstalk.com")
+@FeignClient(value = "order", url = "http://localhost:5000")
 public interface OrderClient {
 
   @PatchMapping(value = "/techchallenge/orders/{orderId}")
