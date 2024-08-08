@@ -62,7 +62,7 @@ class PaymentControllerTest extends PaymentTestProvider {
     var paymentInput = getFakeInputPaymentRequest();
     var paymentOutput = getFakeOutputPayment();
 
-    when(approvePaymentUseCase.execute(any())).thenReturn(paymentOutput);
+    when(approvePaymentUseCase.execute(any(), any())).thenReturn(paymentOutput);
 
     //Act + Assert
     mockMvc.perform(

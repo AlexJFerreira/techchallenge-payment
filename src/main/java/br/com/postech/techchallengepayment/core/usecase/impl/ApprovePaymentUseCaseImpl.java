@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 public class ApprovePaymentUseCaseImpl implements ApprovePaymentUseCase {
 
   private final PaymentGateway paymentGateway;
-  private final OrderGateway orderGateway;
   private final PaymentProducerGateway paymentProducerGateway;
 
   @Override
@@ -25,7 +24,6 @@ public class ApprovePaymentUseCaseImpl implements ApprovePaymentUseCase {
     Payment payment = paymentGateway.approvePayment(paymentId, paymentStatus)
         .orElseThrow(() -> new NotFoundException(String.format("Payment with id %s not found", paymentId)));
 
-    orderGateway.changeOrderStatus(Integer.valueOf(payment.getOrderId()));
     paymentProducerGateway.notifyPaymentApprovalQueue(payment.getOrderId(), paymentStatus);
     return payment;
   }

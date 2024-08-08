@@ -37,17 +37,17 @@ class ApprovePaymentUseCaseImplTest extends PaymentTestProvider {
     //Arrange
     var paymentId = "7203e682-a02c-4f6e-b555-c39f892c9f0c";
     var outPutPayment = getFakeOutputPayment();
-    when(paymentGateway.approvePayment(paymentId))
+    when(paymentGateway.approvePayment(paymentId, null))
         .thenReturn(Optional.of(outPutPayment));
 
     doNothing()
         .when(orderGateway).changeOrderStatus(anyInt());
 
     //Act
-    Payment payment = approvePaymentUseCase.execute(paymentId);
+    Payment payment = approvePaymentUseCase.execute(paymentId, null);
 
     //Assert
-    verify(paymentGateway).approvePayment(paymentId);
+    verify(paymentGateway).approvePayment(paymentId, null);
     verify(orderGateway).changeOrderStatus(anyInt());
     assertNotNull(payment);
   }
@@ -56,14 +56,14 @@ class ApprovePaymentUseCaseImplTest extends PaymentTestProvider {
   void executeWhenPaymentIsNotFoundThenThrowsNotFoundException() {
     //Arrange
     var paymentId = "7203e682-a02c-4f6e-b555-c39f892c9f0c";
-    when(paymentGateway.approvePayment(paymentId))
+    when(paymentGateway.approvePayment(paymentId, null))
         .thenReturn(Optional.empty());
 
     //Act
-    assertThrows(NotFoundException.class, () -> approvePaymentUseCase.execute(paymentId));
+    assertThrows(NotFoundException.class, () -> approvePaymentUseCase.execute(paymentId, null));
 
     //Assert
-    verify(paymentGateway).approvePayment(paymentId);
+    verify(paymentGateway).approvePayment(paymentId, null);
     verify(orderGateway, never()).changeOrderStatus(anyInt());
   }
 }

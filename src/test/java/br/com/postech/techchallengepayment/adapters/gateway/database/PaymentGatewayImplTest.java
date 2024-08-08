@@ -48,7 +48,7 @@ class PaymentGatewayImplTest extends PaymentTestProvider {
         .thenReturn(outputPaymentEntity);
 
     //Act
-    Optional<Payment> payment = paymentGateway.approvePayment(paymentId);
+    Optional<Payment> payment = paymentGateway.approvePayment(paymentId, null);
 
     //Assert
     verify(paymentRepository).findById(paymentId);
